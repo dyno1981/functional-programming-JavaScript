@@ -2,7 +2,7 @@
 function add(a, b) {
   return a + b
 }
-123
+
 // 동일한 인자를 주면 동일한 결과를 리턴
 console.log(add(10, 5))
 console.log(add(10, 5))
