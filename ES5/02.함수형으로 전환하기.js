@@ -1,5 +1,4 @@
 let users = [
-
   {id: 1, name: 'ID', age: 36},
   {id: 2, name: 'BJ', age: 32},
   {id: 3, name: 'JM', age: 32},
@@ -100,15 +99,17 @@ console.log(
     _filter(users, function (user) {return user.age < 30}), function (user) {return user.age}
   ))
 
+
 /* 3. each 만들기 */
 // 1. _each로 _map, _filter 중복 제거
 // _.js에 있음
-function _each(list, iter) {
-  for (let i = 0; i < list.length; i++) {
-    iter(list[i])
-  }
-  return list
-}
+// 176 _get쪽에 재정의
+
+// function _each(list, iter) {
+//   for (let i = 0; i < list.length; i++) {
+//     iter(list[i])
+//   }
+//   return list
 
 
 // 2. 외부 다형성
@@ -166,11 +167,19 @@ let sub10 = sub(10)
 console.log(sub10(5))
 
 
-
 // 2. _get 만들어 좀 더 간단하게 하기
 let _get = _curryr(function(obj, key) {
   return obj === null ? undefined : obj[key]
 })
+
+let _length = _get('length')
+// 다시 맨 아래로 이사 감
+// function _each(list, iter) {
+//   for (let i = 0, len = _length(list); i < len; i++) {
+//     iter(list[i])
+//   }
+//   return list
+// }
 
 let user1 = users[0]
 console.log(user1.name)
@@ -222,7 +231,7 @@ console.log(
 
 
 /* 6. 파이프라인 만들기 */
-  // 1. _pipt
+// 1. _pipt
 function _pipe() {
   let fns = arguments
   return function (arg) {
@@ -240,7 +249,7 @@ let f1 = _pipe(
 
 console.log(f1(1))
 
-  // 2. _go
+// 2. _go
 function _go(arg) {
   let fns = _rest(arguments)
   _pipe.apply(null, fns)(arg)
@@ -268,7 +277,7 @@ _go(users,
     })
   },
   function (users) {
-  return _map(users, _get('name'))
+    return _map(users, _get('name'))
   }, console.log)
 
 _go(users,
@@ -287,6 +296,7 @@ console.log(_map([1, 2, 3], function (val) { return val * 2}))
 
 console.log(_map(function (val) { return val * 2})([1, 2, 3]))
 
+// 3. users에 _go 적용
 _go(users,
   function (users) {
     return _filter(users, function (user) {
@@ -317,50 +327,34 @@ _go(users,
   _map(_get('age')),
   console.log)
 
-  // 3. users에 _go 적용
 
+/* 7. _each의 외부 다형성 높이기 */
+// 1. _each에 null 넣어도 에러 안나게
+_each(null, console.log)
 
+// 2. _keys 만들기
+// 3. _keys에서도 _is_object인지 검사하여 null 에러 안나게
+console.log(_keys({name: 'ID', age: 33}))
+console.log(_keys([1, 2, 3, 4]))
+console.log(_keys(10))
+console.log(_keys(null))
 
+function _is_object(obj) {
+  return typeof obj === 'object' && !!obj
+}
+function _keys(obj) {
+  return _is_object(obj) ? Object.keys(obj) : []
+}
+// 4. _each 외부 다형성 높이기
+function _each(list, iter) {
+  let keys = _keys(list)
+  for (let i = 0, len = keys.length; i < len; i++) {
+    iter(list[keys[i]])
+  }
+  return list
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+_each({13: 'ID', 19: 'HD', 29: 'YG'},
+  function (name) {
+    console.log(name)
+  })
