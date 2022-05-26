@@ -11,5 +11,5 @@
 > 2022-05-24 강의 공부 시작 섹션1 완강  
 
 [함수형 프로그래밍과 ES6+ 예제 코드]: https://github.com/indongyoo/functional-javascript-01
-[함수형 자바스크립트 프로그래밍 ES5 예제 코드]: (https://github.com/indongyoo/functional-javascript
-[함수형 자바스크립트 라이브러리 Partial.js]: (https://marpple.github.io/partial.js
+[함수형 자바스크립트 프로그래밍 ES5 예제 코드]: https://github.com/indongyoo/functional-javascript
+[함수형 자바스크립트 라이브러리 Partial.js]: https://marpple.github.io/partial.js
