@@ -62,6 +62,7 @@
   for (const a of map.keys()) console.log(a)
   for (const a of map.values()) console.log(a)
   for (const a of map.entries()) console.log(a)
+  console.clear()
 </script>
 
 ## 이터러블/이터레이터 프로토콜
@@ -72,9 +73,44 @@
 ### 사용자 정의 이터러블을 통해 알아보기
 
 <script>
+  const iterable = {
+    [Symbol.iterator]() {
+      let i = 3
+      return {
+        next() {
+          return i === 0 ? { done: true} : { value: i--, done: false }
+        },
+        [Symbol.iterator]() { return this }
+      }
+    }
+  }
+  let iterator = iterable[Symbol.iterator]()
+  iterator.next()
+  iterator.next()
+  // console.log(iterator.next())
+  // console.log(iterator.next())
+  // console.log(iterator.next())
+  // console.log(iterator.next())
+  for (const a of iterator) console.log(a)
+
+  // const arr2 = [1, 2, 3]
+  // let iter4 = arr2[Symbol.iterator]()
+  // // iter4.next()
+  // console.log(iter4[Symbol.iterator]() === iter4)
+  // for (const a of iter4) console.log
+  for (const a of document.querySelectorAll('*')) console.log(a)
+  const all = document.querySelectorAll('*')
+  let iter5 = all[Symbol.iterator]()
+  console.log(iter5.next())
+  console.log(iter5.next())
+  console.log(iter5.next())
 </script>
 
 ## 전개 연산자
 
 <script>
+  console.clear()
+  const a = [1, 2]
+  // a[Symbol.iterator] = null
+  console.log([...a, ...arr, ...set, ...map.keys()])
 </script>

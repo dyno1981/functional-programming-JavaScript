@@ -1,0 +1,68 @@
+<script>const log = console.log</script>
+
+<script>
+  const products = [
+    {name: '반팔티', price: 15000},
+    {name: '긴팔티', price: 20000},
+    {name: '핸드폰케이스', price: 15000},
+    {name: '후드티', price: 30000},
+    {name: '바지', price: 25000}
+  ]
+</script>
+
+# map
+
+<script>
+  let setA = new Set([1, 2, 3, 4, 5])
+  let setB = new Set([4, 5, 6, 7, 8])
+
+  // 합집합
+  let unionSet = new Set([...setA, ...setB])
+  for (let value of unionSet) console.log(value)
+  // 차례대로 1, 2, 3, 4, 5, 6, 7, 8 출력
+
+  // 교집합
+  let intersectionSet = new Set([...setA].filter(v => setB.has(v)))
+  for (let value of intersectionSet) console.log(value)
+  // 차례대로 4, 5 출력
+
+  // 차집합
+  let differenceSet = new Set([...setA].filter(v => !setB.has(v)))
+  for (let value of differenceSet) console.log(value)
+  // 차례대로 1, 2, 3 출력
+
+  // 대칭 차집합 Symmetric Difference
+  const set1 = new Set([1, 2, 3, 4, 5])
+  const set2 = new Set([3, 4, 5, 6, 7])
+  const symmetricDifferenceSet = new Set(
+    [...[...set1].filter(x => !set2.has(x)), ...[...set2].filter(x => !set1.has(x))]
+  )
+  for (let value of symmetricDifferenceSet) console.log(value)
+  // 차례대로 1, 2, 6, 7 출력
+</script>
+
+# 이터러블 프로토콜을 따른 map의 다형성
+
+<script>
+
+  // console.clear()
+</script>
+
+
+# filter
+
+<script>
+
+  // console.clear()
+</script>
+
+# reduce
+
+<script>
+  const nums = [1, 2, 3, 4, 5]
+
+  // console.clear()
+</script>
+
+<script>
+</script>
