@@ -39,21 +39,81 @@
     a => a + 10,
     a => a + 100)
 
-  log(f(0))
-  // console.clear()
+  log(f(0, 1))
+
+  console.clear()
 </script>
 
 <script>
+  console.log(
+    reduce(
+      add,
+      map(p => p.price,
+        filter(p => p.price < 20000, products))
+    )
+  )
+  // curry 적용 전 go
+  go(
+    products,
+    products => filter(p => p.price < 20000, products),
+    products => map(p => p.price, products),
+    prices => reduce(add, prices),
+    log)
 
+  // curry 적용 후 go
+  go(
+    products,
+    products => filter(p => p.price < 20000)(products),
+    products => map(p => p.price)(products),
+    prices => reduce(add)(prices),
+    log)
+
+  go(
+    products,
+    filter(p => p.price < 20000),
+    map(p => p.price),
+    reduce(add),
+    log)
+
+  console.clear()
 </script>
 
 ## curry
 
 <script>
-  // console.clear()
+  // fx.js에 있음
+  // const curry = f =>
+  //   (a, ..._) => _.length ? f(a, ..._) : (..._) => f(a, ..._)
+
+  const mult = curry((a, b) => a * b)
+  console.log(mult(3)(2))
+  const mult3 = mult(3)
+  console.log(mult3((10)))
+  console.log(mult3((5)))
+  console.log(mult3((3)))
+
+  console.clear()
 </script>
 
 # 함수 조합으로 함수 만들기
 
 <script>
+  const total_price = pipe(
+    map(p => p.price),
+    reduce(add))
+
+  const base_total_price = predi => pipe(
+    filter(predi),
+    total_price
+  )
+
+  go(
+    products,
+    base_total_price(p => p.price < 20000),
+    log)
+
+  go(
+    products,
+    base_total_price(p => p.price >= 20000),
+    log)
 </script>
