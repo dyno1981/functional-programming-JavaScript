@@ -134,6 +134,7 @@
     L.filter(n => n % 2),
     take(2),
     log)
+  console.clear()
 </script>
 
 ### map, filter 계열 함수들이 가지는 결합 법칙
@@ -152,6 +153,47 @@
 ### reduce
 
 <script>
+  // const queryStr = obj => go(
+  //   obj,
+  //   Object.entries,
+  //   map(([k, v]) => `${k}=${v}`),
+  //   reduce((a, b) => `${a}&${b}`))
+
+  // const queryStr = pipe(
+  //   Object.entries,
+  //   map(([k, v]) => `${k}=${v}`),
+  //   reduce((a, b) => `${a}&${b}`))
+
+  const join = curry((sep = ',', iter) =>
+    reduce((a, b) => `${a}${sep}${b}`, iter))
+
+  // const queryStr = pipe(
+  //   Object.entries,
+  //   map(([k, v]) => `${k}=${v}`),
+  //   join('&'))
+
+  L.entries = function *(obj) {
+    for (const k in obj) yield [k, obj[k]]
+  }
+
+  const queryStr = pipe(
+    L.entries,
+    L.map(([k, v]) => `${k}=${v}`),
+    join('&'))
+
+  console.log(queryStr({ limit: 10, offset: 10, type: 'notice' }))
+
+  function *a() {
+    yield 10
+    yield 11
+    yield 12
+    yield 13
+  }
+
+  console.log(join(',', a()))
+  // console.log(a().join(','))
+
+  console.clear()
 </script>
 
 ### take, find
@@ -168,4 +210,24 @@
     {age: 37},
   ]
 
+  // const find = (f, iter) => go(
+  //   iter,
+  //   filter(a => (console.log(a), f(a))),
+  //   a => (console.log(a), a),
+  //   take(1),
+  //   ([a]) => a
+  // )
+
+  const find = curry((f, iter) => go(
+    iter,
+    L.filter(f),
+    take(1),
+    ([a]) => a
+  ))
+
+  console.log(find(u => u.age < 30, users))
+  go(users,
+    L.map(u => u.age),
+    find(n => n < 30),
+    log)
 </script>
