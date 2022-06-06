@@ -1,6 +1,15 @@
 # 인프런 유인동 자바스크립트 강의 스터디
 ## ES6 - [함수형 프로그래밍과 ES6+ 예제 코드]
 
+> 2022-06-06
+> > - Promise.then의 중요한 규칙
+> > - go, pipe, reduce에서 비동기 제어
+> > - Kleicli Composition 관점에서의 Promise
+> > - 합성 관점에서의 Promise와 모나드
+> > - 값으로서의 Promise 활용
+> > - 비동기를 값으로 만드는 Promise
+> > - callback과 Promise
+>
 > 2022-06-04
 > > - 지연성 / 이터러블 중심 프로그래밍 실무적인 코드
 > > - 2차원 배열 다루기
