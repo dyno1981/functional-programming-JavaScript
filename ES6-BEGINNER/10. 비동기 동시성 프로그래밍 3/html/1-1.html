@@ -3,6 +3,21 @@
 ## async/await
 
 <script>
+  function delay(time) {
+    return new Promise(resolve => setTimeout(() => resolve(), time))
+  }
+
+  async function delayIdentity(a) {
+    await delay(1000)
+    return a
+  }
+
+  async function f1() {
+    const a = await delayIdentity(10)
+    const b = await delayIdentity(5)
+    log(a + b)
+  }
+  f1()
 </script>
 
 ## QnA. Array.prototype.map이 있는데 왜 FxJS의 map 함수가 필요한지?
